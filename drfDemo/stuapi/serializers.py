@@ -8,4 +8,5 @@ class StuApiModelSerializers(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = "__all__"
-        fields = ["id", "name"]
+        # 这里表明的是字段
+        # fields = ["id", "name"]
