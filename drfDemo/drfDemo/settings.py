@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'students'
+    'students',# 原生接口
+    'stuapi', # 调用 api
+    'sers', # models serializers模型
+    'req', # rest 里面的请求类
+    'demo', # 视图
 ]
 
 MIDDLEWARE = [
