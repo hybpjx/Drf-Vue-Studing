@@ -23,4 +23,5 @@ urlpatterns = [
     path("seri/", include("sers.urls")),
     path("req/", include("req.urls")),
     path("demo/", include("demo.urls")),
+    path("school/", include("school.urls")),
 ]

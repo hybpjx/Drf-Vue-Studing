@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'sers', # models serializers模型
     'req', # rest 里面的请求类
     'demo', # 视图
+    'school' #  序列化嵌套
 ]
 
 MIDDLEWARE = [

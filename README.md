@@ -1,2 +1,1 @@
-# acept_ceca
-Dual carbon Committee portal
+平时练习的项目 drf 和vue
