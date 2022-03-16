@@ -1605,10 +1605,18 @@ from django.utils import timezone as datetime
 class Student(models.Model):
     name = models.CharField(max_length=50, verbose_name="姓名")
     age = models.SmallIntegerField(verbose_name="年龄")
-    sex = models.BooleanField(default=False)
+    sex = models.BooleanField(default=False, verbose_name="性别")
 
     class Meta:
         db_table = "sch_student"
+
+    # 自定义模型
+    # 属性方法 可以直接当属性使用
+    @property
+    def achievement(self):
+        """成绩列表"""
+        # print(self.s_achievement.all())
+        return self.s_achievement.values("student__name", "course__name", "score")
 
     def __str__(self):
         return self.name
@@ -1627,7 +1635,7 @@ class Course(models.Model):
 # 教师
 class Teacher(models.Model):
     name = models.CharField(max_length=50, verbose_name="姓名")
-    sex = models.BooleanField(default=False)
+    sex = models.BooleanField(default=False, verbose_name="性别")
 
     class Meta:
         db_table = "sch_teacher"
@@ -1641,29 +1649,27 @@ class Achievement(models.Model):
     student = models.ForeignKey("Student", on_delete=models.DO_NOTHING, related_name="s_achievement",
                                 db_constraint=False)
     course = models.ForeignKey("Course", on_delete=models.DO_NOTHING, related_name="c_achievement", db_constraint=False)
-    create_time = models.DateTimeField(auto_created=datetime.now())
+    create_time = models.DateTimeField(auto_created=datetime.now(), verbose_name="创建时间")
 
     class Meta:
         db_table = "sch_achievement"
 
     def __str__(self):
-        return self.score
+        return str(self.score)
 ```
 
 迁移数据
 
 `python manager.py migrations`
 
-`python manager.py migrate`
+ `python manager.py migrate`
 
 添加数据
 
-```sqlinsert into drf.sch_teacher(id,name,sex) VALUES(1,"李老师",0);
+```sql
+insert into drf.sch_teacher(id,name,sex) VALUES(1,"李老师",0);
 insert into drf.sch_teacher(id,name,sex) VALUES(2,"曹老师",1);
 insert into drf.sch_teacher(id,name,sex) VALUES(3,"王老师",2);
-
-
-
 
 insert into drf.sch_student(id,name,age,sex) VALUES(1,"小明",18,0);
 insert into drf.sch_student(id,name,age,sex) VALUES(2,"小王",19,1);
@@ -1680,15 +1686,12 @@ insert into drf.sch_student(id,name,age,sex) VALUES(12,"小丽",22,0);
 insert into drf.sch_student(id,name,age,sex) VALUES(13,"小石",21,1);
 insert into drf.sch_student(id,name,age,sex) VALUES(14,"小丹",18,0);
 
-
 insert into drf.sch_course(id,name,teacher_id) VALUES(1,"Python入门",1);
 insert into drf.sch_course(id,name,teacher_id) VALUES(2,"Python进阶",2);
 insert into drf.sch_course(id,name,teacher_id) VALUES(3,"Python高级",3);
 insert into drf.sch_course(id,name,teacher_id) VALUES(4,"Goland入门",4);
 insert into drf.sch_course(id,name,teacher_id) VALUES(5,"Goland进阶",5);
 insert into drf.sch_course(id,name,teacher_id) VALUES(6,"Goland高级",6);
-
-
 
 insert into drf.sch_achievement(create_time,id,score,course_id,student_id) VALUES("2022-03-12 08:01:09",1,100.0,1,1);
 insert into drf.sch_achievement(create_time,id,score,course_id,student_id) VALUES("2022-03-12 08:01:09",2,100.0,2,2);
@@ -1718,3 +1721,91 @@ insert into drf.sch_achievement(create_time,id,score,course_id,student_id) VALUE
 insert into drf.sch_achievement(create_time,id,score,course_id,student_id) VALUES("2022-03-12 08:01:09",26,100.0,12,2);
 insert into drf.sch_achievement(create_time,id,score,course_id,student_id) VALUES("2022-03-12 08:01:09",27,100.0,13,3);
 insert into drf.sch_achievement(create_time,id,score,course_id,student_id) VALUES("2022-03-12 08:01:09",28,100.0,14,4);
+```
+
+seriaizer.py
+
+```sql
+from rest_framework import serializers
+
+from school.models import *
+
+# #  老师模型 序类化器类
+# class TeacherModelSerializers(serializers.ModelSerializer):
+#     class Meta:
+#         model = Teacher
+#         fields = "__all__"
+
+#  成绩模型 序类化器类
+class CourseModelSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        # 这样返回会有一个花括号 如何去除呢
+        fields = ["name"]
+        # fields = ("id", "name", "teacher")
+
+#  成绩模型 序类化器类
+class AchievementModelSerializers(serializers.ModelSerializer):
+    # course=CourseModelSerializers()
+
+    # 去除花括号 !! 一定要加引号
+    course_name = serializers.CharField(source="course.name")
+    teacher_name = serializers.CharField(source="course.teacher.name")
+
+    class Meta:
+        model = Achievement
+        fields = ["id", "course_name", "score", "create_time", "teacher_name"]
+        # fields = ("id", "course","score", "create_time")
+
+#  成绩模型 序类化器类
+class AchievementModelSerializers2(serializers.ModelSerializer):
+    class Meta:
+        model = Achievement
+        fields = "__all__"
+        """
+        制定关联深度
+        # 1.成绩模型->课程                   1
+        # 2.从老师模型->课程->成绩            2
+        # 3.从老师模型->课程->成绩->学生       3
+        """
+        depth=3
+
+#  学生模型 序类化器类
+class StudentModelSerializers(serializers.ModelSerializer):
+    # s_achievement 就是 models 里指明的外键字段 ,不可以自定义 不能h指明序列化器
+    # s_achievement = AchievementModelSerializers2(many=True)
+
+    class Meta:
+        model = Student
+        fields = ("id", "name", "achievement")
+        # fields = ("id", "name", "s_achievement")
+```
+
+views.py
+
+```sql
+from .models import *
+from rest_framework.viewsets import ModelViewSet
+from .serializers import StudentModelSerializers
+
+class StudentModelViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentModelSerializers
+```
+
+urls.py
+
+```sql
+from django.urls import path
+from .views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+
+router.register("students", StudentModelViewSet, basename="students")
+
+urlpatterns = [
+              ] + router.urls
+```
+
+》

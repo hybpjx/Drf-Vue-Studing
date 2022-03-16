@@ -16,7 +16,6 @@ import rest_framework
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'students',# 原生接口
-    'stuapi', # 调用 api
-    'sers', # models serializers模型
-    'req', # rest 里面的请求类
-    'demo', # 视图
-    'school' #  序列化嵌套
+    'students',  # 原生接口
+    'stuapi',  # 调用 api
+    'sers',  # models serializers模型
+    'req',  # rest 里面的请求类
+    'demo',  # 视图
+    'school',  # 序列化嵌套
+    'opt',  # 序列化嵌套
 ]
 
 MIDDLEWARE = [
@@ -77,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drfDemo.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -88,7 +86,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'root',
-        'PASSWORD': '123456'
+        'PASSWORD': 'admin*123'
     }
 }
 
@@ -110,20 +108,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -134,3 +130,41 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# drf 配置
+
+REST_FRAMEWORK = {
+    # # 认证
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     # 基础认证
+    #     'rest_framework.authentication.BasicAuthentication',
+    #     # session认证
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     # # token认证
+    #     # 'rest_framework.authentication.TokenAuthentication',
+    #     # 自定义验证
+    #     'drfDemo.authentication.CustomAuthentication'
+    # ),
+    #
+    # # 权限
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     # 但是会有个小问题 就是你在登陆页面 会让你去登陆 可以使用在登陆的视图类中设置 permission_classes=[]
+    #     'rest_framework.permissions.IsAuthenticated',  # 大部分公司企业的内部站点都是使用这个 不允许其他人访问 都会默认全局设置
+    #     # 'drfDemo.permission.IsXiaoMingPermission',
+    # ),
+
+    # # 限流
+    'DEFAULT_THROTTLE_CLASSES': (
+        # 'rest_framework.throttling.AnonRateThrottle', # 未登录用户
+        # 'rest_framework.throttling.UserRateThrottle',    #登录用户
+        'rest_framework.throttling.ScopedRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/day',  # 未登录用户 每天100次
+        'user': '4/day',  # 登录用户每天1000次
+        'member': "3/day",
+        'vip': "3/hour",
+        'vvip': "3/minute",
+    }
+
+}

@@ -92,6 +92,6 @@ router = DefaultRouter()
 # 2. 给路由注册去注册视图集
 router.register("students9", StudentModelViewSet, basename="students9")
 router.register("students10", StudentModelViewSet, basename="students10")
-print(router.urls)
+# print(router.urls)
 # 3. 把生成的路由列表和原路由进行拼接
 urlpatterns += router.urls
