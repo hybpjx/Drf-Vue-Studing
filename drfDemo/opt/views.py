@@ -111,3 +111,55 @@ class Demo3ApiView(APIView):
 
     def get(self, request):
         return Response({"msg": "ok"})
+
+
+from rest_framework.generics import ListCreateAPIView
+from stuapi.serializers import StuApiModelSerializers
+from students.models import Student
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+
+
+class Demo4ApiView(ListCreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StuApiModelSerializers
+
+    # 局部过滤配置
+    # filter_backends = [DjangoFilterBackend]
+    filter_fields = ["name", "gender"]
+
+    # 局部排序配置
+    # filter_backends = [DjangoFilterBackend,OrderingFilter]
+    ordering_fields = ["id", "age"]
+
+    # 局部过滤排序配置
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+
+
+# 分页
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from .pagination import CustomPagination
+
+
+
+class Demo5ApiView(ListAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StuApiModelSerializers
+
+    # 关闭分页
+    # pagination_class = None
+
+    # 局部分页功能
+    pagination_class = CustomPagination
+
+
+class Demo6ApiView(APIView):
+    def get(self,request):
+        # try:
+        #     1/0
+        # except ZeroDivisionError:
+        #     return Response({"detail":"1 不能除以 0"})
+        1/0
+        return Response({"msg":"ok"})
+

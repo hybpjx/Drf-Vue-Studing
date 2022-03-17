@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import rest_framework
-
+import django_filters
+import drf_yasg
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'drf_yasg',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -165,6 +168,22 @@ REST_FRAMEWORK = {
         'member': "3/day",
         'vip': "3/hour",
         'vvip': "3/minute",
-    }
+    },
+    # # 过滤器默认后端
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     # 'django_filters.rest_framework.DjangoFilterBackend', # 过滤
+    #     'rest_framework.filters.OrderingFilter',
+    # ),
+
+
+    # 分页全局配置 基本不用
+    # # 偏移量分页器
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # # 页码分页器
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5, # 每一页多少条数据 如果不进行设置 则不分配,
+
+    'EXCEPTION_HANDLER': 'drfDemo.exceptions.exceptions_custom',
+'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema'
 
 }

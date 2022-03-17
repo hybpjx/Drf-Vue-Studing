@@ -15,6 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import permissions
+from rest_framework.documentation import include_docs_urls
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='API接口文档',
+        default_version='v1',
+        description='接口文档平台',
+        # terms_of_service='http://api.xxx.com',
+        contact=openapi.Contact(email='hybpjx@qq.com'),
+        license=openapi.License(name='License')
+    ),
+    public=True,  # 允许所有人访问
+    # 权限类
+    permission_classes=(permissions.IsAuthenticated,),  # 允许所有人访问
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +42,10 @@ urlpatterns = [
     path("req/", include("req.urls")),
     path("demo/", include("demo.urls")),
     path("school/", include("school.urls")),
-    path("opt/",include("opt.urls")),
+    path("opt/", include("opt.urls")),
+
+    path('docs/', include_docs_urls(title='说明文档')),
+
+    path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger'),
+
 ]
