@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01 简单使用</title>
+    <script type="application/javascript" src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!-- {{message}} 表示对象里面data选项的对应数据输出到页面上  -->
+    <!-- 在双标签中显示数据 需要通过{{ }} 来完成  -->
+    <p>{{message}}</p>
+    <p>{{num}}</p>
+    <p>{{is_delete}}</p>
+
+    <!--如果没有这个值 则不显示-->
+<!--    <p>{{classmate}}</p>-->
+</div>
+
+
+<script type="application/javascript">
+
+     // // Vuejs的所有代码全部开始于Vue对象
+     // // Vue.createApp可以创建一个vue的实例对象  通过这个实例对象，我们可以操作制定的html的内容 数据 结构  特效 等等
+     // // 一个HTML 页面中 可以创建多个实例对象  但是这些实例对象的保存变量名 不能一样
+     // // 所以每次操作数据都要从创建vue实例对象开始
+     // Vue.createApp({
+     //     data(){
+     //        // data 是将要展示到html标签元素的数据，一般会在data这里预先设置vue 要使用的变量数据，并给变量指定一个默认值
+     //        // 当然 最终data 这里的数据都是来自服务器
+     //         return{
+     //             message:"hello,python",
+     //             num:200,
+     //             is_delete:false
+     //         }
+     //     }
+     // }).mount("#app")
+
+
+     // Vuejs的所有代码全部开始于Vue对象
+     // Vue.createApp可以创建一个vue的实例对象  通过这个实例对象，我们可以操作制定的html的内容 数据 结构  特效 等等
+     // 一个HTML 页面中 可以创建多个实例对象  但是这些实例对象的保存变量名 不能一样
+     // 所以每次操作数据都要从创建vue实例对象开始
+    const vm = Vue.createApp({
+        // data 是将要展示到html标签元素的数据，一般会在data这里预先设置vue 要使用的变量数据，并给变量指定一个默认值
+        // 当然 最终data 这里的数据都是来自服务器
+        data() {
+            return {
+                message: "hello,python",
+                num:200,
+                is_delete:false
+            }
+        }
+    }).mount("#app")
+
+    //  保存mount方法的直接结果就是一个vue实例对象 里面可以直接访问data 返回结果的值
+    // 只有挂载才能看到数据
+    console.log(vm)
+    console.log(vm.message) // 相当于直接获取data 选项里的is_delete
+    console.log(vm.is_delete)
+    console.log(vm.num)
+
+
+</script>
+
+</body>
+</html>
