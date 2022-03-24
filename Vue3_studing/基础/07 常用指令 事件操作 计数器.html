@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07 计数器</title>
+    <script type="application/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <button @click="sub">-</button>
+  <input type="text" size="2" v-model="num">
+  <button @click="add">+</button>
+
+</div>
+
+
+<script type="application/javascript">
+  const vm=Vue.createApp({
+      data(){
+          return {
+              num:1, // 当前用户选择的商品数量
+              max:10, // 库存
+          }
+      },
+      methods:{
+          sub(){
+              // 减少数量
+              if (this.num<=1) return; // return 表示终止
+              this.num-=1
+          },
+          add(){
+              // 增加数量
+              if(this.num>=this.max) return;
+              this.num+=1
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

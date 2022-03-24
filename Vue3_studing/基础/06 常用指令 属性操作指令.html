@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06 属性操作</title>
+    <script type="application/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <input :type="type" v-model="password"> <button @click="change">{{text}}</button>
+</div>
+
+
+<script type="application/javascript">
+  const vm=Vue.createApp({
+      data(){ //数据选项
+          return{
+              type:"text",
+              password:"",
+              text:"显示密码"
+          }
+      },
+      methods:{ //方法选项
+          change(){
+              if (this.type==="text"){
+                  this.type ="password";
+                  this.text="显示密码"
+              }else {
+                  this.type="text";
+                  this.text="隐藏密码"
+              }
+          }
+      }
+
+  }).mount("#app")
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>09 操作样式-style</title>
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+  <!-- 值是Json对象 对象直接写在style属性中 -->
+  <div :style="{color:activeColor,fontSize:fontSize + 'px' }" @click="fontSize+=10">div1</div>
+  <!-- 值是对象变量名，对象在data中进行声明 -->
+  <div :style="styleObj">div2</div>
+  <!-- 值是一个数组 -->
+  <div :style="[style1,style2]">div3</div>
+
+</div>
+
+
+<script>
+  const vm=Vue.createApp({
+      data(){
+          return{
+              activeColor:"red",
+              fontSize:30,
+              styleObj:{
+                  fontSize: "50px",
+                  backgroundColor:"yellow"
+              },
+              style1:{
+                  color:"red",
+              },
+              style2:{
+                  backgroundColor: "blue"
+              }
+
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

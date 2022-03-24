@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>10 选项卡</title>
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+
+      p{
+          padding: 0;
+          margin: 0;
+      }
+
+    .title_list span{
+        display: inline-block; /* 设置元素的显示模式：行级块状元素 */
+        height: 60px;
+        line-height: 60px;
+        width: 120px;
+        background-color: #bbb;
+        text-align: center;
+        cursor: pointer;
+        margin: 1px;
+    }
+
+    .title_list .active{
+        background-color: yellow;
+    }
+
+    .content_list .content{
+        background-color: yellow;
+        display: none;
+        width: 365px;
+        height: 280px;
+    }
+    .content_list .current{
+        display: block;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<div id="app">
+  <div class="title_list">
+    <span class="active">国际新闻</span>
+    <span>国内新闻</span>
+    <span>外星新闻</span>
+  </div>
+
+  <div class="content_list">
+    <div class="content current">
+      <p>国际新闻列表</p>
+      <p>国际新闻列表</p>
+      <p>国际新闻列表</p>
+      <p>国际新闻列表</p>
+      <p>国际新闻列表</p>
+    </div>
+    <div class="content">
+      <p>国内新闻列表</p>
+      <p>国内新闻列表</p>
+      <p>国内新闻列表</p>
+      <p>国内新闻列表</p>
+      <p>国内新闻列表</p>
+    </div>
+    <div class="content">
+      <p>外星新闻列表</p>
+      <p>外星新闻列表</p>
+      <p>外星新闻列表</p>
+      <p>外星新闻列表</p>
+      <p>外星新闻列表</p>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  const vm=Vue.createApp({
+      data(){
+          return{
+
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

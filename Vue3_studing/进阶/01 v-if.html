@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-if</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+    .l0{
+        color: #000;
+    }
+    .l1{
+        color: #fff999 ;
+        background-color: black;
+    }
+    .l2{
+        color: #aaaa00 ;
+        background-color: black;
+    }
+    .l3{
+        color: #fff333 ;
+        background-color: black;
+    }
+  </style>
+
+</head>
+<body>
+<div id="app">
+  <!-- v-else 只能作为子语句 跟在上一个v-if后面  如果有多个else 后面的会覆盖上一个 -->
+  <p v-if="username">欢迎回到xxx网站 {{username}}</p>
+  <p v-else>欢迎访问xxx网站 尊贵的游客</p>
+
+  <!-- vue对象会把最终的结果变成bool值 -->
+  <p v-if="level===0" class="l0">您是会员vip</p>
+  <p v-if="level===1" class="l1" >您是会员svip</p>
+  <p v-if="level===2" class="l2" >您是会员mvip</p>
+  <p v-if="level===3" class="l3" >您是会员msvip</p>
+  <p v-else>您什么也不是</p>
+
+</div>
+
+
+<script>
+  const vm = Vue.createApp({
+      data(){
+          return {
+              username:"", // 用户名
+              level:0 // 等级
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>08 操作样式</title>
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+    .p1{
+        background: aqua;
+        color: yellow;
+    }
+
+    .p2{
+        background: blue;
+        color: red;
+    }
+    .p3{
+        border: 2px solid red;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<div id="app">
+  <p :class="p1_cls" @click="p1_cls='p1'">1</p>
+
+  <p :class="{p1:use_p1,p2:use_p2}" @click="use_p2=!use_p2">2</p> <!--最常用-->
+  <p :class="cls" @click="cls.p2=!cls.p2">3</p><!--最常用-->
+  <p :class="[cls,cls1]">4</p>
+
+
+  <!-- 如果为真  则为p1 否则 则为p2 -->
+  <p :class="condition?'p1':'p2'">5</p>
+  <p class="p3" :class="condition?'p1':'p2'" @click="condition=!condition">6</p><!--最常用-->
+</div>
+
+
+<script>
+  const vm=Vue.createApp({
+      data(){
+          return{
+              p1_cls:"p2",
+              use_p1:true,
+              use_p2:false,
+              cls:{
+                  p1:true,
+                  p2:false
+              },
+              cls1:{
+                  p3:true
+              },
+              condition:false
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

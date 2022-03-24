@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04 显示数据</title>
+    <script type="application/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!--双括号内部可以调用js代码，但是必须以变量名开头-->
+    <!-- message.toUpperCase(),把数据转成大写-->
+    <!--message.spilt(""),把数据的字符案子副边界分割成单个字符组成的数据-->
+    <!--array.reverse(),把数组的成员进行反转排序-->
+    <!--array.join(""),巴蜀族的成员使用字符边界进行合并，变成自服从-->
+    <p>{{message.toUpperCase().split("").reverse().join("")}}</p>
+
+    <p>{{link}}</p>
+
+    <p>&lt;a href=&quot;https://www.baidu.com&quot;&gt;百度&lt;/a&gt;</p>
+
+    <p v-html="link"></p>
+
+    <p>{{num}}</p>
+    <p>{{num>100?'大于100':'小于或者等于100'}}</p>
+
+    <p>{{num+0.8}}</p>
+
+    <!--保留两位小数字-->
+    <p>{{(num+0.8).toFixed(2)}}</p>
+
+    <p>{{num+1000_000_100}}</p>
+
+    <p>
+        <input type="number" v-model="num">
+    </p>
+
+</div>
+
+
+<script type="application/javascript">
+  const vm= Vue.createApp({
+      data(){
+          return {
+              num:10,
+              message:"hello",
+              link:'<a href="https://www.baidu.com">百度</a>'
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

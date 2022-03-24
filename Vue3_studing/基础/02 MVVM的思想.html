@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02 MVVM的思想</title>
+    <script type="application/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>{{message}}</p>
+  <input type="text" v-model="message">
+  <p>{{num}}</p>
+  <input type="number" v-model="num">
+</div>
+
+
+<script type="application/javascript">
+  const vm = Vue.createApp({
+    // data选项中声明的所有数据都会被vm对象 进行便利循环，复制给v名对象作为属性的，我们访问操作data里面的数据直接通过this来访问
+    data() { // 保存数据，用于输出到 HTML页面的
+      return {
+        message:"hello",
+        num:100
+      }
+    },
+    mounted(){
+        // 定时器 第一个参数是匿名函数，参数2 是一个定时时间，表示时隔多久 执行 第一个参数
+        setInterval( // 会在Vue家在html完成以后 自动执行mounted中的代码
+            ()=>{
+                this.num+=1; // this 相当于python中的self
+                console.log(this.vm);
+            },1000
+        )
+    }
+  }).mount("#app")
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04 vm 常用数学方法</title>
+    <script type="application/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>{{num}}</p>
+  <p>{{num}}</p>
+  <p>{{num}}</p>
+  <p ref="p3">{{num}}</p>
+  <p>{{num}}</p>
+  <p>{{num}}</p>
+</div>
+
+
+<script type="application/javascript">
+  const vm = Vue.createApp({
+    data() {
+      return {
+        num:100
+      }
+    },
+  }).mount("#app")
+
+  console.log(vm);
+  console.log(vm.num);
+  console.log(vm.$data); // vm对象要现实到页面中的数据
+  console.log(vm.$data.num); // 访问data里面的数据
+  console.log(vm.$el); // vm对象可以控制的范围
+  console.log(vm.$el.parentElement);// #app标签本身
+  console.log(vm.$refs); // vue中所有经过ref数学注册的标签元素
+  console.log(vm.$refs.p3); // 这里表示html的模板视图中<p ref=p3>的这个元素
+  vm.$refs.p3.style["backgroundColor"]="red";
+  vm.$refs.p3.style.backgroundColor="yellow";
+
+</script>
+
+</body>
+</html>

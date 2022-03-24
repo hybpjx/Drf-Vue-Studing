@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-show</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+  <p v-show="username">欢迎回到xxx网站 {{username}}</p>
+  <p v-show="!username">欢迎回到xxx网站 {{username}}</p>
+
+</div>
+
+
+<script>
+  const vm = Vue.createApp({
+      data(){
+          return {
+              username:"", // 用户名
+          }
+      }
+  }).mount("#app")
+</script>
+
+</body>
+</html>
