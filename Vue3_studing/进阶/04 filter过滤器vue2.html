@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script type="application/javascript" src="../js/vue2.js"></script>
+  <script src="../js/filters.js"></script>
+
+</head>
+<body>
+<div id="app">
+  <p>{{num | money}}</p>
+  <p>{{num | money1}}</p>
+</div>
+
+
+<script>
+
+
+
+  const vue= new Vue({ // 在vue3.0 后 该成 vue.createApp
+      el:"#app", // 3.0之后移除了 el选项 替代成了mount
+      data(){
+          return {
+              num:100.453
+          }
+      },
+      method:{
+        add(){
+            this.num+=1
+        },
+        sub(){
+            this.num-=1
+        }
+      },
+      // 在vue对象内部定义一个filters选项
+      filters:{
+          money(data){
+              return data.toFixed(2)+"元"
+          }
+      }
+  })
+</script>
+
+</body>
+</html>

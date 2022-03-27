@@ -7,62 +7,51 @@
   <script type="application/javascript" src="../js/vue.js"></script>
 
   <style>
-    table{
-        border-collapse: collapse;
-        border: 1px solid red;
+    input {
+        outline: none;
+        border: 1px solid #333;
     }
-
-    td,th{
-        border: 1px solid red;
-        padding: 10px 18px;
-    }
-
   </style>
 
 </head>
 <body>
 <div id="app">
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>TITLE</th>
-      <th>PRICE</th>
-      <th>ATTR</th>
-    </tr>
+  用户名：<input type="text" ref="username" v-model="username"> <br><br>
+  密码：<input type="password" ref="password" v-model="password"> <br><br>
 
-
-    <tr v-for="book,key in book_list">
-      <td>{{key+1}}</td>
-      <td>{{book.id}}</td>
-      <td>{{book.title}}</td>
-      <td>{{book.price}}</td>
-<!--      <td>{{book.attr.publishDate}}</td>-->
-
-      <td >
-        <p v-for="attr,key in book.attr">
-          {{attr}}
-        </p>
-      </td>
-
-    </tr>
-
-  </table>
 </div>
 
-
 <script>
-  const vm = Vue.createApp({
-      data(){
-          return {
-              book_list:[
-                  {"id":11,"title":"三国演义","price":200, "attr":{"company":"人民邮电","publishDate":"2021-5-1"}},
-                  {"id":22,"title":"水浒传","price":200, "attr":{"company":"中国邮电","publishDate":"2021-5-1"}},
-                  {"id":33,"title":"红楼梦","price":200, "attr":{"company":"重庆邮电","publishDate":"2021-5-1"}},
-                  {"id":44,"title":"西游记","price":200, "attr":{"company":"江苏邮电","publishDate":"2021-5-1"}},
-              ]
-          }
-      }
-  }).mount("#app")
+    const vm = Vue.createApp({
+        data() {
+            return {
+                username:"",
+                password:""
+            }
+        },
+        // 监听/侦听
+        // 主要用来用于监听data中的数据或者computed的变量发生值的变化时 自动执行watch的函数
+        watch:{
+            username(){
+                console.log(`username=${this.username}`)
+                let length=this.username.length
+                if (length>=6 && length<=16){
+                    this.$refs.username.style.border="1px solid blue";
+                }else {
+                    this.$refs.username.style.border="1px solid red";
+                }
+
+            },
+            // 修改前的值 和修改后的值
+            password(new_value,old_value){
+                if (/^\d+$/.test(this.password)){
+                     this.$refs.password.style.border="1px solid red";
+                }else {
+                    this.$refs.username.style.border="1px solid blue";
+                }
+            }
+        }
+    }).mount("#app")
 </script>
 
 </body>

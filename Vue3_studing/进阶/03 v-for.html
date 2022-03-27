@@ -7,15 +7,15 @@
   <script type="application/javascript" src="../js/vue.js"></script>
 
   <style>
-    table{
-        border-collapse: collapse;
-        border: 1px solid red;
-    }
+      table {
+          border-collapse: collapse;
+          border: 1px solid red;
+      }
 
-    td,th{
-        border: 1px solid red;
-        padding: 10px 18px;
-    }
+      td, th {
+          border: 1px solid red;
+          padding: 10px 18px;
+      }
 
   </style>
 
@@ -31,15 +31,15 @@
     </tr>
 
 
-    <tr v-for="book,key in book_list">
-      <td>{{key+1}}</td>
+    <tr v-for="(book,key) in book_list">
+      <td>{{key + 1}}</td>
       <td>{{book.id}}</td>
       <td>{{book.title}}</td>
       <td>{{book.price}}</td>
-<!--      <td>{{book.attr.publishDate}}</td>-->
+      <!--      <td>{{book.attr.publishDate}}</td>-->
 
-      <td >
-        <p v-for="attr,key in book.attr">
+      <td>
+        <p v-for="(attr,key) in book.attr">
           {{attr}}
         </p>
       </td>
@@ -51,18 +51,18 @@
 
 
 <script>
-  const vm = Vue.createApp({
-      data(){
-          return {
-              book_list:[
-                  {"id":11,"title":"三国演义","price":200, "attr":{"company":"人民邮电","publishDate":"2021-5-1"}},
-                  {"id":22,"title":"水浒传","price":200, "attr":{"company":"中国邮电","publishDate":"2021-5-1"}},
-                  {"id":33,"title":"红楼梦","price":200, "attr":{"company":"重庆邮电","publishDate":"2021-5-1"}},
-                  {"id":44,"title":"西游记","price":200, "attr":{"company":"江苏邮电","publishDate":"2021-5-1"}},
-              ]
-          }
-      }
-  }).mount("#app")
+    const vm = Vue.createApp({
+        data() {
+            return {
+                book_list: [
+                    {"id": 11, "title": "三国演义", "price": 200, "attr": {"company": "人民邮电", "publishDate": "2021-5-1"}},
+                    {"id": 22, "title": "水浒传", "price": 200, "attr": {"company": "中国邮电", "publishDate": "2021-5-1"}},
+                    {"id": 33, "title": "红楼梦", "price": 200, "attr": {"company": "重庆邮电", "publishDate": "2021-5-1"}},
+                    {"id": 44, "title": "西游记", "price": 200, "attr": {"company": "江苏邮电", "publishDate": "2021-5-1"}},
+                ]
+            }
+        }
+    }).mount("#app")
 </script>
 
 </body>

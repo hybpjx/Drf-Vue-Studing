@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+      table {
+          border-collapse: collapse;
+          border: 1px solid red;
+      }
+
+      td, th {
+          border: 1px solid red;
+          padding: 10px 18px;
+      }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>PRICE</th>
+      <th>NUMBER</th>
+      <th>TOTAL</th>
+    </tr>
+
+    <tr v-for="good in good_lists">
+      <td>{{good.id}}</td>
+      <td>{{good.title}}</td>
+      <td>{{good.price}}</td>
+      <td>
+        <button @click="sub(good)">-</button>
+        <input type="text" size="1" v-model="good.number">
+        <button @click="add(good)">+</button>
+      </td>
+
+      <td>{{(good.number * good.price).toFixed(2)}}</td>
+    </tr>
+
+    <tr>
+      <td colspan="3"></td>
+
+      <td>总计：</td>
+
+      <td>{{total_price}}</td>
+    </tr>
+
+    <tr>
+      <td colspan="3"></td>
+
+      <td>实付款：</td>
+
+      <td>{{discount_price}}</td>
+    </tr>
+
+
+  </table>
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                good_lists: [
+                    {"id": 11, "title": "三国演义", "price": 688.5, "number": 0},
+                    {"id": 22, "title": "水浒传", "price": 200.11, "number": 0},
+                    {"id": 33, "title": "红楼梦", "price": 150.23, "number": 0},
+                    {"id": 44, "title": "西游记", "price": 110.53, "number": 0},
+                ]
+            }
+        },
+        // 计算属性 新增的属性 相当于在data中新声明了一个属性
+        // 可以随着变量的变化而变化
+        computed: {
+            total_price() {
+                let total = 0;
+                for (let good of this.good_lists) {
+                    total += good.price * good.number;
+                }
+                return total.toFixed(2);
+            },
+            discount_price(){
+              let total=this.total_price
+              if (total>=2000){
+                  return (total-200).toFixed(2)
+              }
+                  return parseFloat(total).toFixed(2)
+            },
+        },
+        methods: {
+            add(good) {
+                good.number += 1
+            },
+            sub(good) {
+                if (good.number <= 0) return;
+                good.number -= 1
+            },
+
+        }
+    }).mount("#app")
+</script>
+
+</body>
+</html>
