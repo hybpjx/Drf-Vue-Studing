@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+
+  用户名：<input type="text" ref="username" v-model="username"> <br><br>
+  密码：<input type="password" ref="password" v-model="password"> <br><br>
+  <a href="http://www.baidu.com" @click.prevent="check_params">登陆</a>
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                username: "",
+                password: ""
+            }
+        },
+        methods: {
+            check_params() {
+                if (this.username !== "xiaoming") {
+                    console.log("验证数据失败！！！！")
+                    return;  // 阻止代码继续执行
+                }else {
+                    console.log("通过验证")
+                }
+            }
+        }
+    }).mount("#app")
+</script>
+
+</body>
+</html>

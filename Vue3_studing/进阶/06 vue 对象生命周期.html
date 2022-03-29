@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+  {{message}}
+  <input type="text" v-model="num"> <p>{{num}}</p>
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                message: "hello,world",
+                num:100
+            }
+        },
+        beforeCreate(){
+            // 自动钩子 初始化data选项之前
+            console.log("》》》beforeCreate执行了。")
+            console.log(this.$data)
+            console.log(this.num) // 此时data还没有初始化 所以无法访问
+        },
+        created(){
+            // 初始化data选项之后
+            // 发送http请求到服务端获取数据 并补充到data选项中
+            console.log("》》》created执行了，开发时一般在这里作数据的初始化，编写ajax或者其他网络请求。")
+            console.log(this.$data)
+            console.log(this.num) // 此时data还没有初始化 所以无法访问
+        },
+        beforeMount(){
+            // 把data中的选项的数据赋值给html指令之前---->>>{{message}} 进行 html页面的修改
+            console.log(">>>>> beforeMount 执行了");
+            console.log(this.$el)
+        },
+
+        mounted(){
+            console.log(">>>>>> mounted 执行了，开发一般在这里作页面的初始化，编写html页面/样式/其他的插件")
+            // 把data中的数据替换到视图模板中
+            console.log(this.$el.parentElement.innerHTML)
+        },
+        beforeUpdate(){
+            // 修改数据前的钩子函数
+            // 编写一些修改数据前的判断逻辑 例如数据的有效判断，操作人员的权限
+            console.log(">>>>>> beforeUpdate 执行了 数据已经在data中变化 ，但是没有同步到 html代码中")
+            console.log(this.$el.parentElement.innerHTML)
+        },
+        updated(){
+          // data中的数据被改动 并同步到 HTML模板页面之后
+            // 编写一些同步数据库的代码  发送http请求 通知服务器，数据被改动了
+            console.log(">>>>>> updated 执行了")
+            console.log(this.$el.parentElement.innerHTML)
+        },
+        beforeUnmount(){
+            console.log(">>>>>>>beforeUnmount 被调用了")
+        }
+    }).mount("#app")
+</script>
+
+</body>
+</html>

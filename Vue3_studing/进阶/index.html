@@ -7,47 +7,62 @@
   <script type="application/javascript" src="../js/vue.js"></script>
 
   <style>
-    input {
-        outline: none;
-        border: 1px solid #333;
-    }
+      body {
+          margin: 0;
+          padding: 0;
+      }
+
+      #app2 {
+          position: fixed;
+          top: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.6);
+          color: #fff;
+          width: 68vw;
+          padding-top: 30vh;
+          padding-bottom: 30vh;
+          padding-left: 32vw;
+      }
+
+      a {
+          color: #fff;
+          text-decoration: none;
+      }
+
   </style>
 
 </head>
 <body>
 <div id="app">
-  用户名：<input type="text" ref="username" v-model="username"> <br><br>
-  密码：<input type="password" ref="password" v-model="password"> <br><br>
+  <button @click="show_login_box=!show_login_box">登陆</button>
+  <div id="app2" v-if="show_login_box" @click="show_login_box=false">
+    <div @click.stop="">
+      用户名：<input type="text" ref="username" v-model="username"> <br><br>
+      密码：&nbsp;<input type="password" ref="password" v-model="password"> <br><br>
+    </div>
 
+    <a href="http://www.baidu.com" @click.prevent.stop="check_params">登陆</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a @click="show_login_box=false">取消登陆</a>
+  </div>
 </div>
 
 <script>
     const vm = Vue.createApp({
         data() {
             return {
-                username:"",
-                password:""
+                username: "",
+                password: "",
+                show_login_box: false
             }
         },
-        // 监听/侦听
-        // 主要用来用于监听data中的数据或者computed的变量发生值的变化时 自动执行watch的函数
-        watch:{
-            username(){
-                console.log(`username=${this.username}`)
-                let length=this.username.length
-                if (length>=6 && length<=16){
-                    this.$refs.username.style.border="1px solid blue";
-                }else {
-                    this.$refs.username.style.border="1px solid red";
-                }
-
-            },
-            // 修改前的值 和修改后的值
-            password(new_value,old_value){
-                if (/^\d+$/.test(this.password)){
-                     this.$refs.password.style.border="1px solid red";
-                }else {
-                    this.$refs.username.style.border="1px solid blue";
+        methods: {
+            check_params() {
+                if (this.username !== "xiaoming") {
+                    console.log("验证数据失败！！！！")
+                    return;  // 阻止代码继续执行
+                } else {
+                    console.log("通过验证")
                 }
             }
         }

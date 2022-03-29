@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+<!-- v-model.trim 用于去除字符串两边的空白字符 常用于密码 -->
+  <input type="password" v-model.trim="password"> <br> <br>
+<!--  v-model.lazy 用于减少触发watch侦听选项的频率 从原来的input事件侦听切换成了change 事件的监听  -->
+  <input type="text" v-model.lazy="mobile"> <br> <br>
+<!--  v-model.number 表示把变量作为数值进行转换 能转的都会转-->
+  <input type="text" size="1" v-model.number="num">+500= <span>{{num+500}}</span> <br> <br>
+
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                password:"",
+                mobile:"",
+                num:""
+            }
+        },
+        watch:{
+            password(){
+              console.log(this.password)
+            },
+            mobile(){
+                // 发送http请求 验证手机号是否在服务端验证了
+                console.log("发送http请求 验证手机号是否在服务端验证了")
+                console.log(this.mobile)
+            }
+        }
+    }).mount("#app")
+</script>
+
+</body>
+</html>

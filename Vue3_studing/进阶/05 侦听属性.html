@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+    input {
+        outline: none;
+        border: 1px solid #333;
+    }
+  </style>
+
+</head>
+<body>
+<div id="app">
+  用户名：<input type="text" ref="username" v-model="username"> <br><br>
+  密码：<input type="password" ref="password" v-model="password"> <br><br>
+
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                username:"",
+                password:""
+            }
+        },
+        // 监听/侦听
+        // 主要用来用于监听data中的数据或者computed的变量发生值的变化时 自动执行watch的函数
+        watch:{
+            username(){
+                console.log(`username=${this.username}`)
+                let length=this.username.length
+                if (length>=6 && length<=16){
+                    this.$refs.username.style.border="1px solid blue";
+                }else {
+                    this.$refs.username.style.border="1px solid red";
+                }
+
+            },
+            // 修改前的值 和修改后的值
+            password(new_value,old_value){
+                if (/^\d+$/.test(this.password)){
+                     this.$refs.password.style.border="1px solid red";
+                }else {
+                    this.$refs.username.style.border="1px solid blue";
+                }
+            }
+        }
+    }).mount("#app")
+</script>
+
+</body>
+</html>

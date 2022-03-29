@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #box{
+        border: 1px solid red;
+    }
+  </style>
+
+</head>
+<body>
+  <div id="app">
+    整个页面
+    <div id="box">
+      内容块
+      <button>按钮</button>
+    </div>
+  </div>
+
+  <script>
+    let app = document.querySelector("#app")
+    let box = document.querySelector("#box")
+    let btn = document.querySelector("#app button")
+
+    app.onclick = ()=>{
+        console.log("app 被点击了")
+    }
+    box.onclick = ()=>{
+        console.log("box 被点击了")
+    }
+    btn.onclick = (event)=>{
+        console.log(event) // 事件对象
+        event.stopPropagation() // 阻止事件继续往外冒泡
+        console.log("btn 被点击了")
+    }
+
+  </script>
+</body>
+</html>
