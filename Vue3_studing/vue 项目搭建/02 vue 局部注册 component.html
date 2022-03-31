@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+  <header-component></header-component>
+</div>
+
+<script>
+    // 组件声明 普通组件 脚本化
+    const headerComponent = {
+        data() {
+            // 组件内部的数据
+            return {
+                num: 100,
+                title: "hello,world",
+                nav_list: [
+                    "站点首页",
+                    "网站活动",
+                    "会员登陆",
+                ]
+            }
+        },
+        methods: {
+            // 组件方法
+            add() {
+                this.num += 1
+            }
+        },
+        //模板代码
+        template:
+            `
+              <ul>
+              <li v-for="nav in this.nav_list">{{ nav }}</li>
+              </ul>
+              <button @click="add">{{ num }}</button>
+              <button>{{ title }}</button>
+            `
+    }
+
+
+    const vm = Vue.createApp({
+        data() {
+            return undefined;
+        },
+        components: {
+            // "header-component": headerComponent
+            // "headerComponent": headerComponent
+        //简写
+
+            headerComponent,
+        }
+    }).mount("#app")
+
+</script>
+
+</body>
+</html>

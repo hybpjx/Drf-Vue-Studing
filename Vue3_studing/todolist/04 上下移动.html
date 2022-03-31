@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>todolist</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+      .list_con {
+          width: 600px;
+          margin: 50px auto 0;
+      }
+
+      .inputtxt {
+          width: 550px;
+          height: 30px;
+          border: 1px solid #ccc;
+          padding: 0;
+          text-indent: 10px;
+      }
+
+      .inputbtn {
+          width: 40px;
+          height: 32px;
+          padding: 0px;
+          border: 1px solid #ccc;
+      }
+
+      .list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          margin-top: 0px;
+      }
+
+      .list li {
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid #ccc;
+      }
+
+      .list li span {
+          float: left;
+      }
+
+      .list li a {
+          float: right;
+          text-decoration: none;
+          margin: 0 10px;
+      }
+
+  </style>
+</head>
+<body>
+
+<div class="list_con" id="todolist">
+  <h2>To Do List</h2>
+  <input type="text" v-model="text" id="txt1" class="inputtxt">
+  <input type="button" value="增加" @click="add_task" id="btn1" class="inputbtn" >
+
+  <ul id="list" class="list" >
+    <li v-for="(task,key) in task_list">
+      <span>{{task}}</span>
+      <a href="javascript:;" @click="up_task(key)" class="up">+</a>
+      <a href="javascript:;" @click="down_task(key)" class="down">-</a>
+      <a href="javascript:;" @click.prevent="del_task(key)" class="del">删除</a>
+
+    </li>
+  </ul>
+
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text:"",
+                task_list: [
+                    "学习html",
+                    "学习css",
+                    "学习js",
+                ]
+            }
+        },
+
+        methods:{
+            add_task(){
+
+                // 添加任务计划
+                if(this.text.length<1){
+                    // 组织代码进行
+                    return; // 组织任务继续继续进行
+                }
+                // this.task_list.push(this.text) // push 相当于python中的append
+                this.task_list.unshift(this.text) // unshift 相当于python中的insert(0,成员)
+                // 清空输入框
+                this.text="";
+            },
+            del_task(key){
+                // 删除数据
+                // console.log(this.task_list[key])
+                // this.task_list.splice(start,deleteCount) start 表示 操作开始的下标，deleteCount表示从从开始下标删除指定数量的成员，可以0——多个
+                // this.task_list.splice(start,deleteCount，..new_item...t) new_item 表示新增成员 可以表示多个
+                this.task_list.splice(key,1)
+             },
+            down_task(key){
+                // 下移任务
+                let del_task_list=this.task_list.splice(key,1);
+                // console.log(del_task_list);
+                this.task_list.splice(key+1,0,del_task_list[0]);
+
+            },
+            up_task(key){
+                // 如果为最上面 则 直接终止
+                if (key===0){
+                    return;
+                }
+                // 下移任务
+                let del_task_list=this.task_list.splice(key,1);
+                // console.log(del_task_list);
+                this.task_list.splice(key-1,0,del_task_list[0]);
+
+            }
+        }
+
+    }).mount("#todolist")
+</script>
+
+</body>
+</html>

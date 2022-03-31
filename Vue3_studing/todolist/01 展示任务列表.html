@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>todolist</title>
+
+  <script type="application/javascript" src="../js/vue.js"></script>
+
+  <style>
+      .list_con {
+          width: 600px;
+          margin: 50px auto 0;
+      }
+
+      .inputtxt {
+          width: 550px;
+          height: 30px;
+          border: 1px solid #ccc;
+          padding: 0;
+          text-indent: 10px;
+      }
+
+      .inputbtn {
+          width: 40px;
+          height: 32px;
+          padding: 0px;
+          border: 1px solid #ccc;
+      }
+
+      .list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          margin-top: 0px;
+      }
+
+      .list li {
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid #ccc;
+      }
+
+      .list li span {
+          float: left;
+      }
+
+      .list li a {
+          float: right;
+          text-decoration: none;
+          margin: 0 10px;
+      }
+
+  </style>
+</head>
+<body>
+
+<div class="list_con" id="todolist">
+  <h2>To Do List</h2>
+  <input type="text" name="" id="txt1" class="inputtxt">
+  <input type="button" value="增加" id="btn1" class="inputbtn">
+
+  <ul id="list" class="list" >
+    <li v-for="task in task_list">
+      <span>{{task}}</span>
+      <a href="javascript:;" class="up">+</a>
+      <a href="javascript:;" class="down">-</a>
+      <a href="javascript:;" class="del">删除</a>
+
+    </li>
+  </ul>
+
+</div>
+
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                task_list: [
+                    "学习html",
+                    "学习css",
+                    "学习js",
+                ]
+            }
+        }
+    }).mount("#todolist")
+</script>
+
+</body>
+</html>
