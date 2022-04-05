@@ -1,6 +1,11 @@
 {
-  "name": "Vue",
-  "version": "1.0.0",
+  "name": "vue",
+  "version": "3.0.0",
+  "description": "3.0learning",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zic"
 }

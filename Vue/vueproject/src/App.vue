@@ -1,17 +1,21 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <Home></Home>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Home from './views/Home.vue'
 
+// 暴露语句
+// 必须通过 export 导包过来
 export default {
   name: 'App',
+  data(){
+    return {
+      message:"hello,Python"
+    }
+  },
   components: {
-    HelloWorld
+    Home,
   }
 }
 </script>
