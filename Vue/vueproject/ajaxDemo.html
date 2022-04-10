@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+
+    <style>
+        .weather table{
+            width: 800px;
+            border-collapse: collapse;
+        }
+        .weather table td{
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid red;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <input type="text" id="city" value="苏州">
+    <button onclick="get_weather()"> 获取数据 </button>
+
+    <div class="weather">
+        <table>
+            <tr>
+                <td>data</td>
+                <td>fengxiang——fengli</td>
+                <td>low——high</td>
+                <td>type</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        // 原生ajax 获取数据
+        let city =document.querySelector("#city");
+        let table = document.querySelector(".weather table");
+        // 先保存页面原有的样子
+        let html = table.innerHTML;
+
+        const get_weather=()=>{
+            console.log(`${city.value}的天气预报`);
+            // 实例化一个ajax对象
+            let xhr = new XMLHttpRequest()
+            console.log(xhr.readyState) // 0 ajax 实例化
+            // 设置http请求信息
+            xhr.open("get",`http://wthrcdn.etouch.cn/weather_mini?city=${city.value}`)
+            // xhr.setRequestHeader() // 设置请求头信息
+
+            // 发送http请求
+            xhr.send() // 请求体 username=123&password=123
+            console.log(xhr.readyState) // 1 构建完成http请求 并且发送
+            // 通过ajax的监听事件，监听ajax是否已经获取到服务端返回的数据结果了
+            xhr.onreadystatechange=()=>{
+                // 当状态发生变化时，执行该函数
+                // console.log(xhr.readyState) // 2：http请求已经成功被服务端接受， 3：http请求已经在服务端处理中 4: http请求被服务端处理完成后并返回给客户端ajax
+                if (xhr.readyState===4){ // http请求被服务端处理完成后并返回给客户端ajax
+                    if (xhr.status===200){ // 判断http请求是否相应成功
+                        // 接受结果
+                        // console.log(xhr.response) // 得到的数据是文本格式的 还需要转换格式
+                        let data=JSON.parse(xhr.response);
+                        // console.log(data.data.forecast);
+
+                        let content="";
+                        for (let item of data.data.forecast){
+                            // console.log(item);
+                            content+=`
+                             <tr>
+                                <td>${item.date}</td>
+                                <td>${item.fengxiang}——${item.fengli}</td>
+                                <td>${item.low}——${item.high}</td>
+                                <td>${item.type}</td>
+                            </tr>
+
+                            `
+                        }
+                        table.innerHTML=html+content;
+
+                    }
+                }
+            }
+        }
+
+    </script>
+
+
+</body>
+</html>
