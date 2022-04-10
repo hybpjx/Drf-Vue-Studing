@@ -14,6 +14,7 @@ from pathlib import Path
 import rest_framework
 import django_filters
 import drf_yasg
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -175,15 +176,14 @@ REST_FRAMEWORK = {
     #     'rest_framework.filters.OrderingFilter',
     # ),
 
-
     # 分页全局配置 基本不用
     # # 偏移量分页器
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # # 页码分页器
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5, # 每一页多少条数据 如果不进行设置 则不分配,
+    # 'PAGE_SIZE': 5, # 每一页多少条数据 如果不进行设置 则不分配,
 
     'EXCEPTION_HANDLER': 'drfDemo.exceptions.exceptions_custom',
-'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 
 }

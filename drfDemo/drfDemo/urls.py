@@ -31,7 +31,7 @@ schema_view = get_schema_view(
     ),
     public=True,  # 允许所有人访问
     # 权限类
-    permission_classes=(permissions.IsAuthenticated,),  # 允许所有人访问
+    # permission_classes=(permissions.IsAuthenticated,),  # 允许所有人访问
 )
 
 urlpatterns = [
