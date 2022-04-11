@@ -8,6 +8,8 @@ import Home from './views/Home.vue'
 import Register from "@/views/Register";
 
 
+
+
 // 暴露语句
 // 必须通过 export 导包过来
 export default {
