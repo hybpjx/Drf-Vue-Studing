@@ -1,5 +1,5 @@
 import {createRouter,createWebHistory} from "vue-router";
-
+import wifi from '../views/wifi.vue'
 
 const router=createRouter({
     history:createWebHistory(),
@@ -9,9 +9,9 @@ const router=createRouter({
                 title:'wifi密码'
             },
 
-            path:'/wifi',
+            path:'/',
             name:'wifi',
-            component:import('../views/wifi.vue')
+            component:wifi
         }
     ]
 })
@@ -19,6 +19,6 @@ const router=createRouter({
 export default router
 
 
-router.beforeEach(()=>{
+router.beforeEach((to)=>{
     document.title=to.meta.title;
 })
